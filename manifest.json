@@ -1,0 +1,27 @@
+{
+    "name": "OIDC Browser Sample Chromium Extension manifest 3",
+    "version": "1.0",
+    "description": "Sample extension (manifest 3) demonstrating how to use OIDC-client-ts",
+    "manifest_version": 3,
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "identity",
+        "identity.email"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [{
+        "resources": ["popup.html"],
+        "matches": []
+    }],
+    "incognito": "not_allowed",
+    "background": {
+        "service_worker": "bg-importer.js"
+    },
+    "host_permissions": [
+        "https://login.microsoftonline.com"
+    ]
+  }
