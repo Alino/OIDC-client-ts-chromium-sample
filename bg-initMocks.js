@@ -1,13 +1,9 @@
 // a workaround for oidc being dependent on global window object
 const JSDOM = new jsdomModule.JSDOM;
-globalThis.JSDOM = JSDOM;
 JSDOM.reconfigure({ url: chrome.identity.getRedirectURL() });
 
 globalThis.window = JSDOM.window;
 globalThis.document = globalThis.window.document;
-
-delete globalThis.window.crypto;
-// globalThis.window.msCrypto = msrCrypto;
 
 delete globalThis.window.localStorage;
 delete globalThis.window.sessionStorage;
