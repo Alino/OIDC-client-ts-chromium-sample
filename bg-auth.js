@@ -40,8 +40,15 @@ mgr.events.addAccessTokenExpiring(function () {
 });
 
 mgr.events.addAccessTokenExpired(function () {
-    console.log("token expired");
     log("token expired");
+    /**
+     * the line below was not tested if it actually regains the token
+     * because the token is automatically renewed using settings param "automaticSilentRenew: true"
+     * just before it expires.
+     */
+    client.useRefreshToken();
+
+    
 });
 
 mgr.events.addSilentRenewError(function (e) {
@@ -152,6 +159,11 @@ globalThis.signOut = async function () {
 globalThis.getSignedInUser = async function () {
     return new Promise((resolve, reject) => {
         try {
+            /** 
+             *  NOTE: this disabled code somehow works with MSAL but not with OIDC.
+             *  It is supposed to use some chrome token cache. But with OIDC it does not store it...
+             *  So we are loading the user using oidc mgr manually.
+             */
             // chrome.identity.getProfileUserInfo((user) => {
             //     console.log("user:", user);
             //     if (user) {
